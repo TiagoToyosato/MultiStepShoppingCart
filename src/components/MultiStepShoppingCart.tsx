@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import type { FormState, Action } from "../types";
 import Step1_ProductSelection from "./Step1_ProductSelection";
 import Step2_CustomerInfo from "./Step2_CustomerInfo";
+import Step3_Summary from "./Step3_Summary";
 
 const initialState: FormState = {
   step: 1,
@@ -91,7 +92,12 @@ const MultiStepForm: React.FC = () => {
         />
       )}
 
-      {state.step === 3 && <h2>Resuo do pedido</h2>}
+      {state.step === 3 && (
+        <Step3_Summary
+          customer={state.customer}
+          products={state.selectedProducts}
+        />
+      )}
 
       {/* Botões de navegação */}
       <div style={{ marginTop: "20px" }}>
