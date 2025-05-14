@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import type { FormState, Action } from "../types";
+import Step1_ProductSelection from "./Step1_ProductSelection";
 
 const initialState: FormState = {
   step: 1,
@@ -42,6 +43,11 @@ const MultiStepForm: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleNext = () => {
+    if (state.step === 1 && state.selectedProducts.length === 0) {
+      alert("Selecione pelo menos um produto antes de continuar.");
+      return;
+    }
+
     dispatch({ type: "NEXT_STEP" });
   };
 
@@ -59,7 +65,12 @@ const MultiStepForm: React.FC = () => {
     <div className="multistep-form">
       <h2>Passo {state.step} de 3</h2>
 
-      {state.step === 1 && <h2>Selecione os produtos</h2>}
+      {state.step === 1 && (
+        <Step1_ProductSelection
+          selectedProducts={state.selectedProducts}
+          dispatch={dispatch}
+        />
+      )}
 
       {state.step === 2 && <h2>Dados do cliente</h2>}
 

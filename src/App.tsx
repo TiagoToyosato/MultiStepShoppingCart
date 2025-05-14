@@ -1,3 +1,5 @@
+import "./App.css";
+import "./index.css";
 import MultiStepForm from "./components/MultiStepShoppingCart";
 
 function App() {
