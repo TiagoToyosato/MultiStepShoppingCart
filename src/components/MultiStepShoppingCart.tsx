@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import type { FormState, Action } from "../types";
 import Step1_ProductSelection from "./Step1_ProductSelection";
+import Step2_CustomerInfo from "./Step2_CustomerInfo";
 
 const initialState: FormState = {
   step: 1,
@@ -41,10 +42,20 @@ function reducer(state: FormState, action: Action): FormState {
 
 const MultiStepForm: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isStep2Valid, setIsStep2Valid] = useState(false);
 
   const handleNext = () => {
     if (state.step === 1 && state.selectedProducts.length === 0) {
       alert("Selecione pelo menos um produto antes de continuar.");
+      return;
+    }
+
+    if (state.step === 2) {
+      if (isStep2Valid) {
+        dispatch({ type: "NEXT_STEP" });
+      } else {
+        alert("Preencha todos os campos obrigatórios.");
+      }
       return;
     }
 
@@ -72,7 +83,13 @@ const MultiStepForm: React.FC = () => {
         />
       )}
 
-      {state.step === 2 && <h2>Dados do cliente</h2>}
+      {state.step === 2 && (
+        <Step2_CustomerInfo
+          customer={state.customer}
+          dispatch={dispatch}
+          onValidation={setIsStep2Valid}
+        />
+      )}
 
       {state.step === 3 && <h2>Resuo do pedido</h2>}
 
