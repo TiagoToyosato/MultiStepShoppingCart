@@ -28,3 +28,13 @@ export type Action =
   | { type: 'SET_CUSTOMER'; payload: CustomerData }
   | { type: 'ADD_PRODUCT'; payload: Product }
   | { type: 'REMOVE_PRODUCT'; payload: number }; // ID do produto
+
+  export interface InputProps {
+    label: string;
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    error?: boolean;
+    errorMessage?: string;
+    type?: string;
+  }

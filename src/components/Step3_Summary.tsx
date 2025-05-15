@@ -41,9 +41,14 @@ const Step3_Summary: React.FC<Step3Props> = ({ customer, products }) => {
             {products.map((product) => (
               <li
                 key={product.id}
-                className="flex justify-between items-start bg-white border border-gray-200 rounded-md p-4 shadow-sm"
+                className="flex items-center bg-white border border-gray-200 rounded-md p-4 shadow-sm"
               >
-                <div>
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-20 h-20 object-contain rounded mr-4 border"
+                />
+                <div className="flex-1">
                   <p className="font-medium text-gray-700">{product.title}</p>
                   <p className="text-sm text-gray-500">{product.description}</p>
                 </div>

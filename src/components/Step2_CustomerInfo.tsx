@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
+import InputField from "./InputField";
+
 import type { CustomerData, Action } from "../types";
 
 interface Step2Props {
@@ -48,68 +50,43 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
   return (
     <div className="space-y-6">
       <div>
-        <label htmlFor="name" className="block mb-1 font-medium text-gray-700">
-          Nome
-        </label>
-        <input
-          type="text"
+        <InputField
+          label="Nome"
           name="name"
-          id="name"
           value={formData.name}
           onChange={handleChange}
-          className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 
-            ${
-              errors.name
-                ? "border-red-500 focus:ring-red-300"
-                : "border-gray-300 focus:ring-blue-300"
-            }`}
+          error={errors.name}
+          errorMessage="Campo obrigatório"
         />
+
         {errors.name && (
           <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
         )}
       </div>
 
       <div>
-        <label
-          htmlFor="address"
-          className="block mb-1 font-medium text-gray-700"
-        >
-          Morada
-        </label>
-        <input
-          type="text"
+        <InputField
+          label="Morada"
           name="address"
-          id="address"
           value={formData.address}
           onChange={handleChange}
-          className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 
-            ${
-              errors.address
-                ? "border-red-500 focus:ring-red-300"
-                : "border-gray-300 focus:ring-blue-300"
-            }`}
+          error={errors.address}
+          errorMessage="Campo obrigatório"
         />
+
         {errors.address && (
           <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
         )}
       </div>
 
       <div>
-        <label htmlFor="phone" className="block mb-1 font-medium text-gray-700">
-          Telemóvel
-        </label>
-        <input
-          type="text"
+        <InputField
+          label="Telemóvel"
           name="phone"
-          id="phone"
           value={formData.phone}
           onChange={handleChange}
-          className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 
-            ${
-              errors.phone
-                ? "border-red-500 focus:ring-red-300"
-                : "border-gray-300 focus:ring-blue-300"
-            }`}
+          error={errors.phone}
+          errorMessage="Campo obrigatório"
         />
         {errors.phone && (
           <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>

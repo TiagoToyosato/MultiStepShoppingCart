@@ -48,43 +48,50 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
 
       {/* Grid de produtos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map((product) => {
-          const isSelected = selectedProducts.some((p) => p.id === product.id);
-
-          return (
-            <div
-              key={product.id}
-              className="bg-white shadow-md border border-gray-200 rounded-xl p-4 flex flex-col items-center transition hover:shadow-lg"
-            >
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                className="w-full h-40 object-contain mb-4 rounded"
-              />
-              <h4 className="text-lg font-semibold text-center mb-1">
-                {product.title}
-              </h4>
-              <p className="text-sm text-gray-600 text-center mb-2 line-clamp-2">
-                {product.description}
-              </p>
-              <p className="font-bold text-blue-600 text-md mb-4">
-                € {product.price.toFixed(2)}
-              </p>
-              <button
-                disabled={isSelected}
-                onClick={() => handleAddToCart(product)}
-                className={`w-full py-2 px-4 rounded-md font-semibold text-white transition 
-                  ${
-                    isSelected
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700"
-                  }`}
+        {filteredProducts.length === 0 ? (
+          <div className="col-span-full text-center py-10">
+            <p className="text-gray-500 text-lg">Nenhum produto encontrado.</p>
+          </div>
+        ) : (
+          filteredProducts.map((product) => {
+            const isSelected = selectedProducts.some(
+              (p) => p.id === product.id
+            );
+            return (
+              <div
+                key={product.id}
+                className="bg-white shadow-md border border-gray-200 rounded-xl p-4 flex flex-col items-center transition hover:shadow-lg"
               >
-                {isSelected ? "Adicionado" : "Adicionar ao Carrinho"}
-              </button>
-            </div>
-          );
-        })}
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-full h-40 object-contain mb-4 rounded"
+                />
+                <h4 className="text-lg font-semibold text-center mb-1">
+                  {product.title}
+                </h4>
+                <p className="text-sm text-gray-600 text-center mb-2 line-clamp-2">
+                  {product.description}
+                </p>
+                <p className="font-bold text-blue-600 text-md mb-4">
+                  € {product.price.toFixed(2)}
+                </p>
+                <button
+                  disabled={isSelected}
+                  onClick={() => handleAddToCart(product)}
+                  className={`w-full py-2 px-4 rounded-md font-semibold text-white transition 
+            ${
+              isSelected
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
+                >
+                  {isSelected ? "Adicionado" : "Adicionar ao Carrinho"}
+                </button>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
