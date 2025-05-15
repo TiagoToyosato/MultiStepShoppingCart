@@ -1,9 +1,5 @@
 import React from "react";
-
-interface StepProgressProps {
-  currentStep: number;
-  steps: string[];
-}
+import type { StepProgressProps } from "../types";
 
 const StepProgress: React.FC<StepProgressProps> = ({ currentStep, steps }) => {
   return (
@@ -16,7 +12,6 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, steps }) => {
 
           return (
             <React.Fragment key={index}>
-              {/* Círculo */}
               <div className="flex flex-col items-center col-span-1 relative z-10">
                 <div
                   className={`w-10 h-10 rounded-full border-4 flex items-center justify-center font-bold
@@ -47,7 +42,6 @@ const StepProgress: React.FC<StepProgressProps> = ({ currentStep, steps }) => {
                 </span>
               </div>
 
-              {/* Linha entre círculos */}
               {index < steps.length - 1 && (
                 <div className="h-1 bg-gray-300 w-full col-span-1 relative">
                   <div

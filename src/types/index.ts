@@ -1,3 +1,5 @@
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
 // Estado global do formulário multistep
 export interface FormState {
     step: number;
@@ -29,7 +31,13 @@ export type Action =
   | { type: 'ADD_PRODUCT'; payload: Product }
   | { type: 'REMOVE_PRODUCT'; payload: number }; // ID do produto
 
-  export interface InputProps {
+export interface StepProgressProps {
+      currentStep: number;
+      steps: string[];
+}
+    
+// Propriedades do Input
+export interface InputProps {
     label: string;
     name: string;
     value: string;
@@ -37,4 +45,15 @@ export type Action =
     error?: boolean;
     errorMessage?: string;
     type?: string;
-  }
+}
+
+// Propriedades do modal de alerta
+export interface AlertProps {
+  isOpen: boolean;
+  title?: string;
+  message: string;
+  onClose: () => void;
+  type?: "success" | "warning";
+  icon: IconDefinition;
+  iconColor: string;
+}

@@ -3,7 +3,13 @@ import Step1_ProductSelection from "./Step1_ProductSelection";
 import Step2_CustomerInfo from "./Step2_CustomerInfo";
 import Step3_Summary from "./Step3_Summary";
 import StepProgress from "./StepProgress";
+import Alert from "./Alert";
 import type { FormState, Action } from "../types";
+import {
+  faCheckCircle,
+  faExclamationTriangle,
+  type IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
 
 const initialState: FormState = {
   step: 1,
@@ -45,10 +51,33 @@ function reducer(state: FormState, action: Action): FormState {
 const MultiStepForm: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isStep2Valid, setIsStep2Valid] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [icon, setIcon] = useState(faExclamationTriangle);
+  const [iconColor, seticonColor] = useState("");
+
+  const showAlert = (
+    title: string,
+    message: string,
+    icon: IconDefinition,
+    iconColor: string
+  ) => {
+    setTitle(title);
+    setAlertMessage(message);
+    seticonColor(iconColor);
+    setIcon(icon);
+    setAlertOpen(true);
+  };
 
   const handleNext = () => {
     if (state.step === 1 && state.selectedProducts.length === 0) {
-      alert("Selecione pelo menos um produto antes de continuar.");
+      showAlert(
+        "Aviso",
+        "Selecione pelo menos um produto antes de continuar!",
+        faExclamationTriangle,
+        "text-yellow-500"
+      );
       return;
     }
 
@@ -56,7 +85,12 @@ const MultiStepForm: React.FC = () => {
       if (isStep2Valid) {
         dispatch({ type: "NEXT_STEP" });
       } else {
-        alert("Preencha todos os campos obrigatórios.");
+        showAlert(
+          "Aviso",
+          "Preencha todos os campos obrigatórios!",
+          faExclamationTriangle,
+          "text-yellow-500"
+        );
       }
       return;
     }
@@ -70,7 +104,12 @@ const MultiStepForm: React.FC = () => {
 
   const handleSubmit = () => {
     console.log("Dados enviados:", state);
-    alert("Pedido enviado com sucesso!");
+    showAlert(
+      "Sucesso",
+      "Seu pedido foi enviado!",
+      faCheckCircle,
+      "text-green-500"
+    );
   };
 
   return (
@@ -80,7 +119,6 @@ const MultiStepForm: React.FC = () => {
         steps={["Produtos", "Cliente", "Resumo"]}
       />
 
-      {/* Conteúdo dos steps */}
       <div className="mb-6">
         {state.step === 1 && (
           <Step1_ProductSelection
@@ -105,7 +143,6 @@ const MultiStepForm: React.FC = () => {
         )}
       </div>
 
-      {/* Botões de navegação */}
       <div className="flex justify-between">
         {state.step > 1 && (
           <button
@@ -134,6 +171,15 @@ const MultiStepForm: React.FC = () => {
           </button>
         )}
       </div>
+
+      <Alert
+        isOpen={alertOpen}
+        title={title}
+        message={alertMessage}
+        iconColor={iconColor}
+        icon={icon}
+        onClose={() => setAlertOpen(false)}
+      />
     </div>
   );
 };

@@ -11,7 +11,6 @@ const Step3_Summary: React.FC<Step3Props> = ({ customer, products }) => {
 
   return (
     <div className="space-y-8">
-      {/* Dados do cliente */}
       <section>
         <h4 className="text-lg font-semibold text-gray-800 mb-4">
           Dados do Cliente
@@ -29,7 +28,6 @@ const Step3_Summary: React.FC<Step3Props> = ({ customer, products }) => {
         </div>
       </section>
 
-      {/* Lista de produtos */}
       <section>
         <h4 className="text-lg font-semibold text-gray-800 mb-4">
           Produtos Selecionados
@@ -61,7 +59,6 @@ const Step3_Summary: React.FC<Step3Props> = ({ customer, products }) => {
         )}
       </section>
 
-      {/* Total */}
       <section className="text-right">
         <h4 className="text-xl font-bold text-gray-800">
           Total: <span className="text-blue-600">€ {total.toFixed(2)}</span>

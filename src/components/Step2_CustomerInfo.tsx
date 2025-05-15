@@ -58,10 +58,6 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
           error={errors.name}
           errorMessage="Campo obrigatório"
         />
-
-        {errors.name && (
-          <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
-        )}
       </div>
 
       <div>
@@ -73,10 +69,6 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
           error={errors.address}
           errorMessage="Campo obrigatório"
         />
-
-        {errors.address && (
-          <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
-        )}
       </div>
 
       <div>
@@ -88,9 +80,6 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
           error={errors.phone}
           errorMessage="Campo obrigatório"
         />
-        {errors.phone && (
-          <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
-        )}
       </div>
     </div>
   );

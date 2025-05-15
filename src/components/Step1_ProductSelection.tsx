@@ -37,7 +37,6 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
 
   return (
     <div>
-      {/* Campo de pesquisa */}
       <input
         type="text"
         placeholder="Pesquisar produto..."
@@ -46,7 +45,6 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
         className="w-full px-4 py-2 mb-6 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
       />
 
-      {/* Grid de produtos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.length === 0 ? (
           <div className="col-span-full text-center py-10">
