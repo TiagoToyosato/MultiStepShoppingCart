@@ -37,11 +37,7 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
   }, [formData, dispatch, onValidation]);
 
   useEffect(() => {
-    validateForm(); // validar ao montar
-  }, [validateForm]);
-
-  useEffect(() => {
-    validateForm(); // validar ao alterar campos
+    validateForm();
   }, [formData, validateForm]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,45 +46,73 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
   };
 
   return (
-    <div>
-      <h3>Dados do Cliente</h3>
-
-      <div style={{ marginBottom: "10px" }}>
-        <label>Nome:</label>
+    <div className="space-y-6">
+      <div>
+        <label htmlFor="name" className="block mb-1 font-medium text-gray-700">
+          Nome
+        </label>
         <input
           type="text"
           name="name"
+          id="name"
           value={formData.name}
           onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 
+            ${
+              errors.name
+                ? "border-red-500 focus:ring-red-300"
+                : "border-gray-300 focus:ring-blue-300"
+            }`}
         />
         {errors.name && (
-          <small style={{ color: "red" }}>Campo obrigatório</small>
+          <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
         )}
       </div>
 
-      <div style={{ marginBottom: "10px" }}>
-        <label>Morada:</label>
+      <div>
+        <label
+          htmlFor="address"
+          className="block mb-1 font-medium text-gray-700"
+        >
+          Morada
+        </label>
         <input
           type="text"
           name="address"
+          id="address"
           value={formData.address}
           onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 
+            ${
+              errors.address
+                ? "border-red-500 focus:ring-red-300"
+                : "border-gray-300 focus:ring-blue-300"
+            }`}
         />
         {errors.address && (
-          <small style={{ color: "red" }}>Campo obrigatório</small>
+          <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
         )}
       </div>
 
-      <div style={{ marginBottom: "10px" }}>
-        <label>Telemóvel:</label>
+      <div>
+        <label htmlFor="phone" className="block mb-1 font-medium text-gray-700">
+          Telemóvel
+        </label>
         <input
           type="text"
           name="phone"
+          id="phone"
           value={formData.phone}
           onChange={handleChange}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 
+            ${
+              errors.phone
+                ? "border-red-500 focus:ring-red-300"
+                : "border-gray-300 focus:ring-blue-300"
+            }`}
         />
         {errors.phone && (
-          <small style={{ color: "red" }}>Campo obrigatório</small>
+          <p className="text-sm text-red-600 mt-1">Campo obrigatório</p>
         )}
       </div>
     </div>

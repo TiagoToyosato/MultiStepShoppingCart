@@ -21,9 +21,7 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
         setProducts(data.products);
         setFilteredProducts(data.products);
       })
-      .catch((err) => {
-        console.error("Erro ao carregar produtos:", err);
-      });
+      .catch((err) => console.error("Erro ao carregar produtos:", err));
   }, []);
 
   useEffect(() => {
@@ -39,57 +37,55 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
 
   return (
     <div>
-      <h3>Selecione produtos para adicionar ao carrinho</h3>
-
+      {/* Campo de pesquisa */}
       <input
         type="text"
         placeholder="Pesquisar produto..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: "10px", padding: "5px", width: "100%" }}
+        className="w-full px-4 py-2 mb-6 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
       />
 
-      {filteredProducts.length === 0 ? (
-        <p>Nenhum produto encontrado.</p>
-      ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {filteredProducts.map((product) => (
+      {/* Grid de produtos */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProducts.map((product) => {
+          const isSelected = selectedProducts.some((p) => p.id === product.id);
+
+          return (
             <div
               key={product.id}
-              style={{
-                border: "1px solid #ccc",
-                padding: "10px",
-                borderRadius: "8px",
-              }}
+              className="bg-white shadow-md border border-gray-200 rounded-xl p-4 flex flex-col items-center transition hover:shadow-lg"
             >
               <img
                 src={product.thumbnail}
                 alt={product.title}
-                style={{ width: "100%", height: "150px", objectFit: "cover" }}
+                className="w-full h-40 object-contain mb-4 rounded"
               />
-              <h4>{product.title}</h4>
-              <p>{product.description}</p>
-              <p>
-                <strong>€ {product.price.toFixed(2)}</strong>
+              <h4 className="text-lg font-semibold text-center mb-1">
+                {product.title}
+              </h4>
+              <p className="text-sm text-gray-600 text-center mb-2 line-clamp-2">
+                {product.description}
+              </p>
+              <p className="font-bold text-blue-600 text-md mb-4">
+                € {product.price.toFixed(2)}
               </p>
               <button
+                disabled={isSelected}
                 onClick={() => handleAddToCart(product)}
-                disabled={selectedProducts.some((p) => p.id === product.id)}
+                className={`w-full py-2 px-4 rounded-md font-semibold text-white transition 
+                  ${
+                    isSelected
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
               >
-                {selectedProducts.some((p) => p.id === product.id)
-                  ? "Adicionado"
-                  : "Adicionar ao Carrinho"}
+                {isSelected ? "Adicionado" : "Adicionar ao Carrinho"}
               </button>
             </div>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
     </div>
   );
 };
