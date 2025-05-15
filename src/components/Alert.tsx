@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { AlertProps } from "../types";
 
 const Alert: React.FC<AlertProps> = ({
-  isOpen,
-  title,
-  message,
+  isOpen = false,
+  title = "",
+  message = "",
   onClose,
   icon,
   iconColor,

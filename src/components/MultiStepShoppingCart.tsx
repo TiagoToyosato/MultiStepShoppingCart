@@ -4,6 +4,7 @@ import Step2_CustomerInfo from "./Step2_CustomerInfo";
 import Step3_Summary from "./Step3_Summary";
 import StepProgress from "./StepProgress";
 import Alert from "./Alert";
+import Button from "./Button";
 import type { FormState, Action } from "../types";
 import {
   faCheckCircle,
@@ -145,30 +146,21 @@ const MultiStepForm: React.FC = () => {
 
       <div className="flex justify-between">
         {state.step > 1 && (
-          <button
-            onClick={handlePrevious}
-            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
-          >
+          <Button onClick={handlePrevious} type="previous">
             Anterior
-          </button>
+          </Button>
         )}
 
         {state.step < 3 && (
-          <button
-            onClick={handleNext}
-            className="ml-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
+          <Button onClick={handleNext} type="next">
             Seguinte
-          </button>
+          </Button>
         )}
 
         {state.step === 3 && (
-          <button
-            onClick={handleSubmit}
-            className="ml-auto bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-          >
+          <Button onClick={handleSubmit} type="submit">
             Submeter
-          </button>
+          </Button>
         )}
       </div>
 

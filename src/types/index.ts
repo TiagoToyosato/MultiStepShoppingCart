@@ -57,3 +57,13 @@ export interface AlertProps {
   icon: IconDefinition;
   iconColor: string;
 }
+
+// Propriedades do botão
+export interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: "next" | "previous" | "submit" | "custom";
+  disabled?: boolean;
+  className?: string;
+  fullWidth?: boolean;
+}

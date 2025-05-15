@@ -78,11 +78,11 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
                   disabled={isSelected}
                   onClick={() => handleAddToCart(product)}
                   className={`w-full py-2 px-4 rounded-md font-semibold text-white transition 
-            ${
-              isSelected
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
-            }`}
+                  ${
+                    isSelected
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
                 >
                   {isSelected ? "Adicionado" : "Adicionar ao Carrinho"}
                 </button>
