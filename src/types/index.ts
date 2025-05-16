@@ -5,6 +5,7 @@ export interface FormState {
     step: number;
     selectedProducts: Product[];
     customer: CustomerData;
+    orderDelivered: boolean;
 }
 
 // Representa um produto retornado pela API
@@ -29,7 +30,8 @@ export type Action =
   | { type: 'PREV_STEP' }
   | { type: 'SET_CUSTOMER'; payload: CustomerData }
   | { type: 'ADD_PRODUCT'; payload: Product }
-  | { type: 'REMOVE_PRODUCT'; payload: number }; // ID do produto
+  | { type: 'REMOVE_PRODUCT'; payload: number }
+  | { type: 'RESET' };
 
 export interface StepProgressProps {
       currentStep: number;
@@ -45,6 +47,8 @@ export interface InputProps {
     error?: boolean;
     errorMessage?: string;
     type?: string;
+    placeholder?: string;
+    className?: string;
 }
 
 // Propriedades do modal de alerta

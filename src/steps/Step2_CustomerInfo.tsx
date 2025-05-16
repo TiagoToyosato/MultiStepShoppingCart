@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import InputField from "./InputField";
+import InputField from "../components/InputField";
 
 import type { CustomerData, Action } from "../types";
 
@@ -25,7 +25,7 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
     const newErrors = {
       name: formData.name.trim() === "",
       address: formData.address.trim() === "",
-      phone: formData.phone.trim() === "",
+      phone: !/^\d{9,}$/.test(formData.phone.trim()),
     };
 
     setErrors(newErrors);
@@ -78,7 +78,7 @@ const Step2_CustomerInfo: React.FC<Step2Props> = ({
           value={formData.phone}
           onChange={handleChange}
           error={errors.phone}
-          errorMessage="Campo obrigatório"
+          errorMessage="Telemóvel inválido (mínimo 9 dígitos, apenas números)"
         />
       </div>
     </div>

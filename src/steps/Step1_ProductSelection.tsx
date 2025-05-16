@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
 import type { Product, Action } from "../types";
 
 interface Step1Props {
@@ -37,12 +39,13 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Pesquisar produto..."
+      <InputField
+        label=""
+        name="search"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full px-4 py-2 mb-6 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+        placeholder="Pesquisar produto..."
+        className="mb-6"
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -56,10 +59,19 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
               (p) => p.id === product.id
             );
             return (
+              // <div
+              //   key={product.id}
+              //   className="bg-white shadow-md border border-gray-200 rounded-xl p-4 flex flex-col transition hover:shadow-lg h-full"
+              // >
               <div
                 key={product.id}
-                className="bg-white shadow-md border border-gray-200 rounded-xl p-4 flex flex-col items-center transition hover:shadow-lg"
+                className="relative bg-white shadow-md border border-gray-200 rounded-xl p-4 flex flex-col transition hover:shadow-lg h-full"
               >
+                {isSelected && (
+                  <span className="absolute top-2 right-2 text-xs bg-green-500 text-white px-2 py-1 rounded">
+                    Adicionado
+                  </span>
+                )}
                 <img
                   src={product.thumbnail}
                   alt={product.title}
@@ -74,18 +86,15 @@ const Step1_ProductSelection: React.FC<Step1Props> = ({
                 <p className="font-bold text-blue-600 text-md mb-4">
                   € {product.price.toFixed(2)}
                 </p>
-                <button
-                  disabled={isSelected}
+                <Button
                   onClick={() => handleAddToCart(product)}
-                  className={`w-full py-2 px-4 rounded-md font-semibold text-white transition 
-                  ${
-                    isSelected
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700"
-                  }`}
+                  disabled={isSelected}
+                  fullWidth
+                  className="mt-auto"
+                  type="next"
                 >
                   {isSelected ? "Adicionado" : "Adicionar ao Carrinho"}
-                </button>
+                </Button>
               </div>
             );
           })

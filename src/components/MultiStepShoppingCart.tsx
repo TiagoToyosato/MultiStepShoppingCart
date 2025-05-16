@@ -1,56 +1,22 @@
 import React, { useReducer, useState } from "react";
-import Step1_ProductSelection from "./Step1_ProductSelection";
-import Step2_CustomerInfo from "./Step2_CustomerInfo";
-import Step3_Summary from "./Step3_Summary";
+import Step1_ProductSelection from "../steps/Step1_ProductSelection";
+import Step2_CustomerInfo from "../steps/Step2_CustomerInfo";
+import Step3_Summary from "../steps/Step3_Summary";
 import StepProgress from "./StepProgress";
 import Alert from "./Alert";
 import Button from "./Button";
-import type { FormState, Action } from "../types";
+import {
+  customerFormReducer,
+  initialState,
+} from "../reducers/customerFormReducer";
 import {
   faCheckCircle,
   faExclamationTriangle,
   type IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 
-const initialState: FormState = {
-  step: 1,
-  selectedProducts: [],
-  customer: {
-    name: "",
-    address: "",
-    phone: "",
-  },
-};
-
-function reducer(state: FormState, action: Action): FormState {
-  switch (action.type) {
-    case "NEXT_STEP":
-      return { ...state, step: state.step + 1 };
-    case "PREV_STEP":
-      return { ...state, step: state.step - 1 };
-    case "SET_CUSTOMER":
-      return { ...state, customer: action.payload };
-    case "ADD_PRODUCT":
-      if (state.selectedProducts.find((p) => p.id === action.payload.id))
-        return state;
-      return {
-        ...state,
-        selectedProducts: [...state.selectedProducts, action.payload],
-      };
-    case "REMOVE_PRODUCT":
-      return {
-        ...state,
-        selectedProducts: state.selectedProducts.filter(
-          (p) => p.id !== action.payload
-        ),
-      };
-    default:
-      return state;
-  }
-}
-
 const MultiStepForm: React.FC = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(customerFormReducer, initialState);
   const [isStep2Valid, setIsStep2Valid] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -111,10 +77,17 @@ const MultiStepForm: React.FC = () => {
       faCheckCircle,
       "text-green-500"
     );
+    setTimeout(() => {
+      dispatch({ type: "RESET" });
+    }, 1000); // tempo para o usuário ver o modal
   };
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 bg-white shadow-md rounded-xl">
+      <p className="text-center text-sm text-gray-500 mb-4">
+        Produtos selecionados: {state.selectedProducts.length}
+      </p>
+
       <StepProgress
         currentStep={state.step}
         steps={["Produtos", "Cliente", "Resumo"]}
